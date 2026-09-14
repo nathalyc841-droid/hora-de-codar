@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // Leia dois inteiros (sendo o primeiro menor que o segundo) e calcule a média desses números e de todos os inteiros entre eles.
+        let num1 = parseInt(prompt("Digite o primeiro número:"));
+        let num2 = parseInt(prompt("Digite o segundo número:"));
+        let soma = 0;
+        let contador = 0;
+
+        for (let i = num1; i <= num2; i++) {
+            soma += i;
+            contador++;
+        }
+
+        let media = soma / contador;
+        alert ("A média dos números entre " + num1 + " e " + num2 + " é: " + media);
+
+    </script>
+</body>
+</html>

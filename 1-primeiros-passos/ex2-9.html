@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    // Leia o ano de nascimento e informe se a pessoa pode votar no ano atual (sem considerar o mês).
+
+    var nascimento = Number(prompt(" Digite o seu ano de nascimento: "));
+    var ano_atual = 2026;
+     
+     alert (" sua idade é: " + (ano_atual - nascimento));
+    if (ano_atual - nascimento >= 18) {
+        alert(" Você pode votar ");
+    } else {
+        alert(" Você não pode votar ");
+    }
+</script>    
+</body>
+</html>
