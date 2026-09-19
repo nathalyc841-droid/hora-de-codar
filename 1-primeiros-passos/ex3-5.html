@@ -9,28 +9,7 @@
     <script>
         // Leia 2 notas de um aluno, calcule a média final e considere aprovação com nota 9,5. Em seguida, pergunte: `Calcular a média de outro aluno? (S/N)`. Se a resposta for `S`, repita; caso contrário, encerre e mostre a quantidade de alunos aprovados.
         
-        let aprovados = 0;
-let continuar = true;
-
-while (continuar) {
-
-    let nota1 = parseFloat(prompt("Digite a primeira nota:"));
-    let nota2 = parseFloat(prompt("Digite a segunda nota:"));
-
-    let media = (nota1 + nota2) / 2;
-
-    if (media >= 9.5) {
-        aprovados++;
-    }
-
-    let resposta = prompt("Calcular a média de outro aluno? (S/N)");
-
-    if (resposta.toUpperCase() !== "S") {
-        continuar = false;
-    }
-}
-
-alert("Quantidade de alunos aprovados: " + aprovados);
+   
 
     </script>
 </body>

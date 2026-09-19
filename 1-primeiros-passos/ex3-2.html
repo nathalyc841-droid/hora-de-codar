@@ -9,16 +9,15 @@
     <script>
         // Leia dois valores. Enquanto o segundo valor for menor ou igual a zero, peça novamente esse mesmo valor. Ao final, mostre a divisão do primeiro pelo segundo.
        
-        let valor1 = Number (prompt("Digite o primeiro valor:")); 
-let valor2; 
+     let numero1 = parseInt (prompt ("insira um numero"));
+     let numero2 = parseInt (prompt ("insira um segundo numero"));
 
-do { 
-    valor2 = Number (prompt("Digite o segundo valor:")); 
-} while (valor2 <= 0); 
+    while (numero2 <= 0){
+        numero2= parseInt (prompt("tente novamente "));
+    }
 
-let divisao = valor1 / valor2; 
-
-alert("A divisão do primeiro pelo segundo é: " + divisao);
+    let divisão = numero1 / numero2 
+        alert ("a dividisão de " + numero1 + " e " + numero2 + " = " + divisão)
 
     </script>
 </body>
