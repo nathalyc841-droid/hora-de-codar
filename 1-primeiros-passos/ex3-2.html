@@ -9,11 +9,11 @@
     <script>
         // Leia dois valores. Enquanto o segundo valor for menor ou igual a zero, peça novamente esse mesmo valor. Ao final, mostre a divisão do primeiro pelo segundo.
        
-        let valor1 = parseFloat(prompt("Digite o primeiro valor:")); 
+        let valor1 = Number (prompt("Digite o primeiro valor:")); 
 let valor2; 
 
 do { 
-    valor2 = parseFloat(prompt("Digite o segundo valor:")); 
+    valor2 = Number (prompt("Digite o segundo valor:")); 
 } while (valor2 <= 0); 
 
 let divisao = valor1 / valor2; 
