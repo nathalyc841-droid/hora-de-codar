@@ -8,17 +8,13 @@
 <body>
     <script>
         //  Crie uma bomba-relógio com contagem regressiva de 30 até 0 e, ao final, escreva `EXPLOSÃO`.
-     var inicio=30;
-     var fim = 0;
+       var inicio = 30;
+       var fim = 0;
 
-        while (inicio>fim) {
-            document.write(inicio+"</p>");
-
-            inicio--
-        }
-        document.write("EXPLOSÃO");
-        
-
+         for ( var i =fim; i <= inicio; i++) {
+            console.log(inicio - i);
+          }
+          console.log("EXPLOSÃO");
     </script>
     
 </body>

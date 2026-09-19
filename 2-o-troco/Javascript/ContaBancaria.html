@@ -3,6 +3,11 @@
 <head>
 
 	<script>
+		// Ao acessar o sistema, pergunte o nome do usuário e diga "Olá {Nome} é um prazer ter você por aqui!"
+		
+		var nome;
+		nome=prompt("informe seu nome")
+		alert ("Olá " + nome);
 
 	    // Aqui criamos uma variavel global. Global significa que o elemento pode ser acessado por qualquer método. Para tornar global, utilizamos a palavra static.
     
@@ -10,6 +15,8 @@
 
 		/*  Função principal. */
 		function inicio() {
+
+			// Na função "inicio", utilize escolha/caso (switch/case) ou when (quando), se possível, para validar a opção escolhida pelo usuário.
 
 			var escolha = parseInt(prompt('Selecione uma opção 1.) Saldo 2.) Depósito 3.) Saque 4.) Sair'));
 
