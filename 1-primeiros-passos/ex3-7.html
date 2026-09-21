@@ -9,7 +9,17 @@
     <script>
         // Leia um valor `N` (N > 0) e imprima todos os inteiros de 1 até `N`.
     
-    
+        var n =parseInt (prompt("insira um número"));
+
+    while (n <= 0 ) {
+      n = parseInt(prompt("tente novamente"));
+    }
+    var numeros= "";
+    for (var i = 1; i <= n; i++){
+    numeros += i + "\n";
+    }
+
+    alert(numeros);
     </script>
 </body>
 </html>

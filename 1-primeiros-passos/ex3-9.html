@@ -8,8 +8,24 @@
 <body>
     <script>
         // Leia 10 valores e informe quantos estão no intervalo de 24 a 42 (inclusive) e quantos estão fora.
-       
+       var dentro = 0;
+        var fora = 0;
+
+        for (var i = 1; i <= 10; i++){
         
+    var valor = parseFloat(prompt("Digite um " + i + "ª valor: "));
+        
+        
+        if (valor >= 24 && valor <= 42){
+            dentro++
+            
+        }else{
+            fora++
+           
+         }
+        }
+        alert("estão no intervalo de 24 a 42: " + dentro);
+        alert("estão fora do intervalo de 24 a 42: " + fora);
 
     </script>
 </body>

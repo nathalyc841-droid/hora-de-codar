@@ -1,92 +1,203 @@
-<html>
+<html> 
+ 
+<head> 
+ 
+    <script> 
+        // Ao acessar o sistema, pergunte o nome do usuário e diga "Olá {Nome} é um prazer ter você por aqui!" 
+         
+        var nome; 
+        nome = prompt("informe seu nome"); 
+        alert("Olá " + nome + ", é um prazer ter você por aqui!"); 
+ 
+        // Aqui criamos uma variavel global. Global significa que o elemento pode ser acessado por qualquer método. Para tornar global, utilizamos a palavra static. 
+     
+        var saldo = 100.5; // Float (Número com ponto flutuante) 
+ 
+        /*  Função principal. */ 
+        function inicio() { 
+ 
+            // Na função "inicio", utilize escolha/caso (switch/case) ou when (quando), se possível, para validar a opção escolhida pelo usuário. 
+            // No menu principal, a ordem das opções deve ser: Saldo, Extrato, Saque, Depósito, Transferência e Sair. 
+            // Atualize a função "erro" com as novas opções do menu. 
 
-<head>
+            var escolha = parseInt(prompt('Selecione uma opção 1.) Saldo 2.) Extrato 3.) Saque 4.) Depósito 5.) Transferência 6.) Sair')); 
+ 
+            switch (escolha) { 
 
-	<script>
-		// Ao acessar o sistema, pergunte o nome do usuário e diga "Olá {Nome} é um prazer ter você por aqui!"
-		
-		var nome;
-		nome=prompt("informe seu nome")
-		alert ("Olá " + nome);
+                case 1: 
+                    var senha = prompt('Informe sua senha:');
 
-	    // Aqui criamos uma variavel global. Global significa que o elemento pode ser acessado por qualquer método. Para tornar global, utilizamos a palavra static.
-    
-		var saldo = 100.5; // Float (Número com ponto flutuante)
+                    if (senha !== '3589') {
+                        alert('Senha incorreta.');
+                        inicio();
+                    } else {
+                        ver_saldo();
+                    }
+                    break; 
 
-		/*  Função principal. */
-		function inicio() {
+                case 2: 
+                    var senha = prompt('Informe sua senha:');
 
-			// Na função "inicio", utilize escolha/caso (switch/case) ou when (quando), se possível, para validar a opção escolhida pelo usuário.
+                    if (senha !== '3589') {
+                        alert('Senha incorreta.');
+                        inicio();
+                    } else {
+                        ver_extrato();
+                    }
+                    break; 
 
-			var escolha = parseInt(prompt('Selecione uma opção 1.) Saldo 2.) Depósito 3.) Saque 4.) Sair'));
+                case 3: 
+                    var senha = prompt('Informe sua senha:');
 
-			if (escolha === 1) {
-				ver_saldo();
-			} else if (escolha === 2) {
-				fazer_deposito();
-			} else if (escolha === 3) {
-				fazer_saque();
-			} else if (escolha === 4) {
-				sair();
-			} else {
-				erro();
-			}
-		}
+                    if (senha !== '3589') {
+                        alert('Senha incorreta.');
+                        inicio();
+                    } else {
+                        fazer_saque();
+                    }
+                    break; 
 
-		/*  Função principal. */
-		function ver_saldo() {
-			alert('Seu saldo atual é: ' + saldo);
-			inicio();
-		}
+                case 4: 
+                    fazer_deposito(); 
+                    break; 
 
-		/*  Função para receber informado pelo usuário, processar e levar a uma mensagem de sucesso ou a repetição da função */
-		function fazer_deposito() {
-			var deposito = parseFloat(prompt('Qual o valor para depósito?')); 
-			// Not a Number
-			if (isNaN(deposito) || deposito === '') { // A Função isNaN checa se o valor informado é um Não-Número e retorna verdadeiro ou falso.
-				alert('Por favor, informe um número:');
-				fazer_deposito();
-			} else {
-				saldo += deposito;
-				ver_saldo();
-			}
-		}
+                case 5: 
+                    var senha = prompt('Informe sua senha:');
 
-		/*  Função para receber informado pelo usuário, processar e levar a uma mensagem de sucesso ou a repetição da função */
-		function fazer_saque() {
-			var saque = parseFloat(prompt('Qual o valor para saque?'));
-			if (isNaN(saque) || saque === '') {
-				alert('Por favor, informe um número:');
-				fazer_saque();
-			} else {
-				saldo -= saque;
-				ver_saldo();
-			}
-		}
+                    if (senha !== '3589') {
+                        alert('Senha incorreta.');
+                        inicio();
+                    } else {
+                        fazer_transferencia();
+                    }
+                    break; 
 
-		/* Verificar se há um erro */
-		function erro() {
-			alert('Por favor, informe um número entre 1 e 4');
-			inicio();
-		}
+                case 6: 
+                    sair(); 
+                    break; 
 
-		function sair() {
-			var confirma = confirm('Você deseja sair?');
-			if (confirma) {
-				window.close();
-			} else {
-				inicio();
-			}
-		}
+                default: 
+                    erro(); 
+            } 
+        } 
+ 
+        /*  Função principal. */ 
+        function ver_saldo() { 
+            alert('Seu saldo atual é: ' + saldo); 
+            inicio(); 
+        } 
+ 
+        /*  Função para receber informado pelo usuário, processar e levar a uma mensagem de sucesso ou a repetição da função */ 
+        // Caso o usuário informe um valor para depósito igual ou menor que zero, não deixe a operação ocorrer. Exiba uma mensagem de "Operação não autorizada". 
+         
+        function fazer_deposito() { 
+            var deposito = parseFloat(prompt('Qual o valor para depósito?'));  
+            
+            // Not a Number 
+            if (isNaN(deposito) || deposito === '' || deposito <= 0) { 
+                alert('Operação não autorizada.'); 
+                fazer_deposito(); 
+            } else { 
+                saldo += deposito; 
+                ver_saldo(); 
+            } 
+        } 
+ 
+        /*  Função para receber informado pelo usuário, processar e levar a uma mensagem de sucesso ou a repetição da função */ 
+        // Sempre que o usuário for sacar dinheiro, o valor restante não pode ser negativo, ou seja, caso o usuário tente sacar mais do que tem em saldo, a ação não deve ocorrer. Exiba uma mensagem de "Operação não autorizada". 
+        // Sempre que o usuário for transferir dinheiro, o valor a ser transferido não pode ser igual ou menor que zero, ou seja, caso o usuário tente transferir mais do que tem em saldo, a ação não deve ocorrer. Exiba uma mensagem de "Operação não autorizada". 
+        // Sempre que o usuário for sacar dinheiro, o valor a ser sacado não pode ser igual ou menor que zero. Exiba uma mensagem de "Operação não autorizada". 
+        
+        function fazer_saque() { 
+ 
+            var saque = parseFloat(prompt('Qual o valor para saque?')); 
+ 
+            if (isNaN(saque) || saque === '' || saque <= 0) { 
+                alert('Operação não autorizada.'); 
+                fazer_saque(); 
+ 
+            } else { 
+ 
+                if (saque > saldo) { 
+                    alert('Operação não autorizada. Saldo insuficiente.'); 
+                    fazer_saque(); 
+                } else { 
+                    saldo -= saque; 
+                    ver_saldo(); 
+                } 
+            } 
+        } 
+ 
+        /* Verificar se há um erro */ 
+        // justar a ortografia da frase 'Por favor, informe um número entre 1 e 4' para 'Por favor, informe um número entre 1 a 4'. 
+ 
+        function erro() { 
+            alert('Por favor, informe um número entre 1 a 6'); 
+            inicio(); 
+        } 
 
 
+        // Adicionar a opção para ver o extrato (coloque algumas compras ou depósitos fictícios).
 
-		inicio();
-	</script>
-</head>
+        function ver_extrato() {
 
-<body>
+            alert(
+                'EXTRATO\n\n' +
+                'Depósito: + R$ 500,00\n' +
+                'Compra: - R$ 50,00\n' +
+                'Saque: - R$ 30,00\n' +
+                'Transferência: - R$ 20,00'
+            );
 
-</body>
-
+            inicio();
+        }
+ 
+ 
+        function sair() { 
+            var confirma = confirm('Você deseja sair?'); 
+            
+            if (confirma) { 
+                alert(nome + ', foi um prazer ter você por aqui!');
+                window.close(); 
+            } else { 
+                inicio(); 
+            } 
+        } 
+ 
+        // Adicionar a opção para fazer uma transferência. A transferência consiste em você informar o número de uma conta (pode ser qualquer número, mas obrigatoriamente um número, ou seja, nenhum outro caractere deve ser aceito), perguntar o valor da transferência e remover o valor da conta da mesma forma como na ação do saldo. Caso o usuário tente transferir mais do que tem em saldo, a ação não deve ocorrer. Exiba uma mensagem de "Operação não autorizada". 
+         
+        function fazer_transferencia() { 
+            var conta = prompt('Informe o número da conta para transferência:'); 
+            
+            if (isNaN(conta) || conta === '') { 
+                alert('Por favor, informe um número válido para a conta:'); 
+                fazer_transferencia(); 
+            } else { 
+                
+                var valorTransferencia = parseFloat(prompt('Qual o valor para transferência?')); 
+                
+                if (isNaN(valorTransferencia) || valorTransferencia === '' || valorTransferencia <= 0) { 
+                    alert('Operação não autorizada.'); 
+                    fazer_transferencia(); 
+                } else { 
+                    
+                    if (valorTransferencia > saldo) { 
+                        alert('Operação não autorizada. Saldo insuficiente.'); 
+                        fazer_transferencia(); 
+                    } else { 
+                        saldo -= valorTransferencia; 
+                        alert('Transferência de R$ ' + valorTransferencia + ' realizada com sucesso para a conta ' + conta + '.'); 
+                        ver_saldo(); 
+                    } 
+                } 
+            } 
+        } 
+        inicio();  
+    </script> 
+</head> 
+ 
+<body> 
+ 
+</body> 
+ 
 </html>
