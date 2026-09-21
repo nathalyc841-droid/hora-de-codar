@@ -9,15 +9,16 @@
     <script>
         // Calcule e exiba a média aritmética dos números inteiros de 15 a 100 (inclusive).
       
-       var num1 = 15;
-        var valor = 0;
-        var cont = 1;
-        while(num1 <100){
-            valor += num1;
-            num1++
-            cont++
+       var numero1 = 15;
+       var numero2 = 100
+        var soma = 0;
+        while(numero1 <= numero2){
+            soma += numero1;
+            numero1++;
         }
-        alert(valor/cont);
+        var media = soma  / (numero2 - 15 + 1);
+        alert ("A média aritmética dos números inteiros de 15 a 100 é: " + media);  
+       
         
     </script>
 </body>

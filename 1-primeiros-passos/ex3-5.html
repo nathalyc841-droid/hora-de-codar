@@ -9,8 +9,37 @@
     <script>
         // Leia 2 notas de um aluno, calcule a média final e considere aprovação com nota 9,5. Em seguida, pergunte: `Calcular a média de outro aluno? (S/N)`. Se a resposta for `S`, repita; caso contrário, encerre e mostre a quantidade de alunos aprovados.
         
-   
+    let nota1 = parseFloat(prompt("Insira a primeira nota: "));
+    let nota2 = parseFloat(prompt("Insira a segunda nota: "));
+    let media = (nota1 + nota2 )/ 2
+    let minimo = 9.5  
 
+    if (media >= minimo){
+        alert ("aprovado ")
+    
+    }else {
+        alert ("reprovado ")
+    }
+
+     alert = ( prompt("calcular a média de outro aluno ? (s/n) "))
+
+    if (alert == "s" || alert == "S") {
+        let nota1 = parseFloat(prompt("Insira a primeira nota: "));
+        let nota2 = parseFloat(prompt("Insira a segunda nota: "));
+        let media = (nota1 + nota2 )/ 2
+        let minimo = 9.5  
+
+        if (media >= minimo){
+            alert ("aprovado ")
+        
+        }else {
+            alert ("reprovado ")
+        }
+    } else {
+        alert ("quantidade de alunos aprovados: 1")
+    }
+    
+       
     </script>
 </body>
 </html>

@@ -7,17 +7,21 @@
 </head>
 <body>
     <script>
-    let n1 = parseInt(prompt("Insira um número:"));
-    let n2 = parseInt(prompt("Insira um segundo número:"));
+        // Leia dois inteiros (sendo o primeiro menor que o segundo) e calcule a média desses números e de todos os inteiros entre eles.
 
-    while (n1 >= n2) {
-    n1 = parseInt(prompt("O primeiro número deve ser menor que o segundo. Tente novamente:"));
+    let numero1 = parseInt(prompt("Insira um número:"));
+    let numero2 = parseInt(prompt("Insira um segundo número:"));
+
+    while (numero1 >= numero2) {
+    numero1 = parseInt(prompt("O primeiro número deve ser menor que o segundo. Tente novamente:"));
     }
 
-    let soma = 0;
+    // Calculando a média dos números inteiros entre numero1 e numero2
+
+    let soma = 0; // acumulador
     let quantidade = 0;
 
-    for (let i = n1; i <= n2; i++) {
+    for (let i = numero1; i <= numero2; i++) {  // Enquanto o valor que está dentro da caixa i for menor ou igual a numero2, continue o for.
     soma += i;
     quantidade++;
     }
