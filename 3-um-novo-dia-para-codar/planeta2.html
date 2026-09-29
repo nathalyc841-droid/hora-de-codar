@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // Exiba uma lista de planetas do sistema solar ("Mercúrio", "Vênus", "Terra", "Marte", "Júpiter", "Saturno", "Urano", "Netuno" e "Plutão") para o usuário. Em seguida, peça ao usuário para digitar o nome de um planeta. Verifique se o planeta que o usuário informou está na lista e informe ao usuário.
+    
+     var planetas = ["Mercúrio", "Vênus", "Terra", "Marte", "Júpiter", "Saturno", "Urano", "Netuno", "Plutão"];
+
+alert("Planetas do Sistema Solar:\n" + planetas.join(", "));
+
+var planeta = prompt("Digite o nome de um planeta:").toLowerCase();
+
+if (planetas.some(function(p) {
+    return p.toLowerCase() === planeta;
+})) {
+    alert("O planeta está na lista!");
+} else {
+    alert("O planeta não está na lista.");
+}
+
+    </script>     
+</html>
