@@ -75,12 +75,14 @@ function reservas() {
 let valorDiaria = parseFloat(prompt("Informe o valor da diária:"))
 let quantidadeDias = parseInt(prompt("Informe a quantidade de diárias:"))
 
- if (valorDiaria <= 0 ||
-    quantidadeDias < 1 ||
-    quantidadeDias > 30 ||
+ if ( 
     isNaN(valorDiaria) ||
-    isNaN(quantidadeDias)
-    ) {
+    isNaN(quantidadeDias) ||
+    valorDiaria <= 0 ||
+    quantidadeDias < 1 ||
+    quantidadeDias > 30 
+   
+ ) {
 
  alert("Valor inválido, " + nome)
 
@@ -90,19 +92,23 @@ menuPrincipal()
 }
 
 let nomeHospede = prompt("Informe o nome do hóspede:")
-// tipo
+
+// tipo de quarto
 let tipoQuarto = prompt(
-    "Informe o tipo de quarto:\n" +
+    " Tipo de quarto (S/E/L):\n" +
     "S - Standard\n" +
     "E - Executivo\n" +
     "L - Luxo"
 ).toUpperCase()
 
-while (tipoQuarto !== "S" && tipoQuarto !== "E" && tipoQuarto !== "L") {
+while (tipoQuarto !== "S" &&
+    tipoQuarto !== "E" &&
+    tipoQuarto !== "L"
+) {
     alert("Tipo de quarto inválido.")
 
      tipoQuarto = prompt(
-        "Informe o tipo de quarto:\n" +
+        "Tipo de quarto (S/E/L):\n" +
         "S - Standard\n" +
         "E - Executivo\n" +
         "L - Luxo"
@@ -110,24 +116,38 @@ while (tipoQuarto !== "S" && tipoQuarto !== "E" && tipoQuarto !== "L") {
 }
 // fator do tipo de quarto
 let fatorQuarto
+let nomeTipoQuarto
 
 if (tipoQuarto === "S") {
     fatorQuarto = 1.00
+    nomeTipoQuarto= "Strandard"
 } else if (tipoQuarto === "E") {
     fatorQuarto = 1.35
+    nomeTipoQuarto= "Executivo"
 } else {
     fatorQuarto = 1.65
+    nomeTipoQuarto="Luxo"
 }
 
 // escolha do quarto
 
-let numeroQuarto = parseInt(prompt("Informe o número do quarto (1-20):"))
+let numeroQuarto = parseInt(
+    prompt("Escolha um quarto (1-20):")
+)
 
-while (numeroQuarto < 1 || numeroQuarto > 20 || isNaN(numeroQuarto)) {
+
+while (
+    isNaN(numeroQuarto)||
+    numeroQuarto < 1 ||
+    numeroQuarto > 20
+){
     alert("Número de quarto inválido.")
-    numeroQuarto = parseInt(prompt("Informe o número do quarto (1-20):"))
-    }
-let quartoEscolhido = quartos[numeroQuarto - 1]
+
+    numeroQuarto = parseInt(
+        promp("Escolha um quarto (1-20):")
+    )
+}
+let quartoEscolhido= quartos[numeroQuarto - 1]
 
 // verificação de quarto ocupado
 
@@ -154,7 +174,9 @@ let quartosLivres = ""
         alert("Número de quarto inválido.")
     }
 
-    numeroQuarto = parseInt(prompt("Escolha outro quarto (1-20):"))
+    numeroQuarto = parseInt(
+        prompt("Escolha outro quarto (1-20):")
+    )
     }
         quartoEscolhido = quartos[numeroQuarto - 1]
     }
@@ -163,10 +185,17 @@ let quartosLivres = ""
     let taxaServico = subtotal * 0.10
     let valorTotal = subtotal + taxaServico
 
+    // resumo da reserva
     alert(
-        "Subtotal: R$ " + subtotal.toFixed(2) +
-        "\nTaxa de serviço: R$ " + taxaServico.toFixed(2) +
-        "\nTotal: R$ " + valorTotal.toFixed(2)
+        "Resumo:\n\n" +
+        "Hóspede: " + nomeHospede + "\n" +
+        "Quarto: " + numeroQuarto + " (" + nomeTipoQuarto + ")\n" +
+        "Subtotal: R$ " + 
+        subtotal.toFixed(2).replace(".", ",") + "\n" +
+        "Taxa de serviço (10%): R$ " +
+        taxaServico.toFixed(2).replace(".", ",") + "\n" +
+        "Total: R$ " + 
+        valorTotal.toFixed(2).replace(".", ",")
     )
 
     // confirmação
