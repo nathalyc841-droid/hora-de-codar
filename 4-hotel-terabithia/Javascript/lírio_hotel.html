@@ -69,9 +69,66 @@ function menuPrincipal() {
     }
 }
 function reservas() {
-    alert("Reservas de Quartos")
+    alert("RESERVAS DE QUARTOS")
+
+let valorDiaria = parseFloat(prompt("Informe o valor da diária:"))
+let quantidadeDias = parseInt(prompt("Informe a quantidade de diárias:"))
+
+ if (valorDiaria <= 0 || quantidadeDias < 1 || quantidadeDias > 30 || isNaN(valorDiaria) || isNaN(quantidadeDias)) {
+ alert("Valor inválido, " + nome)
+menuPrincipal()
+ return
+}
+
+let nomeHospede = prompt("Informe o nome do hóspede:")
+let numeroQuarto = parseInt(prompt("Informe o número do quarto (1-20):"))
+
+while (numeroQuarto < 1 || numeroQuarto > 20 || isNaN(numeroQuarto)) {
+    alert("Número de quarto inválido.")
+    numeroQuarto = parseInt(prompt("Informe o número do quarto (1-20):"))
+    }
+
+let quartoEscolhido = quartos[numeroQuarto - 1]
+
+if (quartoEscolhido.ocupado) {
+    alert("Quarto já está ocupado.")
+
+let quartosLivres = ""
+
+    for (let i = 0; i < quartos.length; i++) {
+        if (!quartos[i].ocupado) {
+        quartosLivres += quartos[i].numero + " "
+        }
+    }
+
+    alert("Quartos livres: " + quartosLivres)
+
+ numeroQuarto = parseInt(prompt("Escolha outro quarto (1-20):"))
+
+ while (numeroQuarto < 1 || numeroQuarto > 20 || isNaN(numeroQuarto) || quartos[numeroQuarto - 1].ocupado) {
+
+     if (numeroQuarto >= 1 && numeroQuarto <= 20 && quartos[numeroQuarto - 1].ocupado) {
+        alert("Quarto já está ocupado.")
+    } else {
+        alert("Número de quarto inválido.")
+    }
+
+    numeroQuarto = parseInt(prompt("Escolha outro quarto (1-20):"))
+    }
+        quartoEscolhido = quartos[numeroQuarto - 1]
+    }
+
+    let confirma = prompt(nomeHospede + ", confirma a reserva? (S/N):").toUpperCase()
+
+    if (confirma === "S") {
+        alert("Reserva confirmada.")
+    } else {
+        alert("Reserva não efetuada.")
+    }
+
     menuPrincipal()
 }
+
 
 function hospedes() {
     alert("Cadastro de Hóspedes")
@@ -124,8 +181,7 @@ if (acessoLiberado) {
     menuPrincipal()
 }
 
-// 4) Subprograma 1 — Reservas de Quartos (nível avançado)
-// 4.1 Visão geral
+
     </script>
 </body>
 </html>
