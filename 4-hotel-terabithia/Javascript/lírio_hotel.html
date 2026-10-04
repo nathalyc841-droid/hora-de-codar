@@ -219,9 +219,269 @@ let quartosLivres = ""
 }
 
 
-function hospedes() {
-    alert("Cadastro de Hóspedes")
-    menuPrincipal()
+    function hospedes() {
+
+    let opcao = parseInt(prompt(
+        "CADASTRO DE HÓSPEDES\n\n" +
+        "1. Cadastrar\n" +
+        "2. Pesquisar por nome exato\n" +
+        "3. Pesquisar por prefixo\n" +
+        "4. Listar ordenado (A-Z)\n" +
+        "5. Atualizar cadastro\n" +
+        "6. Remover cadastro\n" +
+        "7. Voltar"
+    ))
+
+    if (opcao === 1) {
+
+        // CADASTRAR
+        if (hospedesCadastrados.length >= 15) {
+            alert("Máximo de cadastros atingido")
+            hospedes()
+            return
+        }
+
+        let nomeHospede = prompt("Nome do hóspede:")
+
+        let existe = false
+
+        for (let i = 0; i < hospedesCadastrados.length; i++) {
+
+            if (hospedesCadastrados[i].nome === nomeHospede) {
+                existe = true
+                break
+            }
+        }
+
+        if (existe) {
+            alert("Hóspede já cadastrado")
+        } else {
+
+            hospedesCadastrados.push({
+                nome: nomeHospede,
+                dataCadastro: new Date()
+            })
+
+            alert("Hóspede cadastrado com sucesso.")
+        }
+
+        hospedes()
+
+    } else if (opcao === 2) {
+
+        // PESQUISAR POR NOME EXATO
+        let nomePesquisa = prompt("Nome do hóspede:")
+
+        let encontrado = false
+
+        for (let i = 0; i < hospedesCadastrados.length; i++) {
+
+            if (hospedesCadastrados[i].nome === nomePesquisa) {
+
+                alert(
+                    "Hóspede " +
+                    nomePesquisa +
+                    " foi encontrado"
+                )
+
+                encontrado = true
+                break
+            }
+        }
+
+        if (!encontrado) {
+            alert("Hóspede não encontrado")
+        }
+
+        hospedes()
+
+    } else if (opcao === 3) {
+
+        // PESQUISAR POR PREFIXO
+        let prefixo = prompt("Prefixo:")
+
+        let resultados = ""
+
+        for (let i = 0; i < hospedesCadastrados.length; i++) {
+
+            if (
+                hospedesCadastrados[i].nome
+                    .toLowerCase()
+                    .startsWith(prefixo.toLowerCase())
+            ) {
+
+                resultados +=
+                    "[" + (i + 1) + "] " +
+                    hospedesCadastrados[i].nome +
+                    "\n"
+            }
+        }
+
+        if (resultados === "") {
+
+            alert("Hóspede não encontrado")
+
+        } else {
+
+            alert(
+                "Resultados:\n\n" +
+                resultados
+            )
+        }
+
+        hospedes()
+
+    } else if (opcao === 4) {
+
+        // LISTAR ORDENADO A-Z
+        let listaOrdenada = [...hospedesCadastrados]
+
+        listaOrdenada.sort(function(a, b) {
+            return a.nome.localeCompare(b.nome)
+        })
+
+        let lista = ""
+
+        for (let i = 0; i < listaOrdenada.length; i++) {
+
+            lista +=
+                "[" + (i + 1) + "] " +
+                listaOrdenada[i].nome +
+                " - " +
+                listaOrdenada[i].dataCadastro.toLocaleString() +
+                "\n"
+        }
+
+        if (lista === "") {
+
+            alert("Nenhum hóspede cadastrado.")
+
+        } else {
+
+            alert(lista)
+        }
+
+        hospedes()
+
+    } else if (opcao === 5) {
+
+        // ATUALIZAR CADASTRO
+        let listaOrdenada = [...hospedesCadastrados]
+
+        listaOrdenada.sort(function(a, b) {
+            return a.nome.localeCompare(b.nome)
+        })
+
+        let lista = ""
+
+        for (let i = 0; i < listaOrdenada.length; i++) {
+
+            lista +=
+                "[" + (i + 1) + "] " +
+                listaOrdenada[i].nome +
+                "\n"
+        }
+
+        if (lista === "") {
+
+            alert("Nenhum hóspede cadastrado.")
+            hospedes()
+            return
+        }
+
+        let indice = parseInt(
+            prompt(
+                "HÓSPEDES\n\n" +
+                lista +
+                "\nInforme o índice que deseja atualizar:"
+            )
+        )
+
+        if (
+            isNaN(indice) ||
+            indice < 1 ||
+            indice > listaOrdenada.length
+        ) {
+
+            alert("Hóspede não encontrado")
+            hospedes()
+            return
+        }
+
+        let novoNome = prompt("Novo nome do hóspede:")
+
+        listaOrdenada[indice - 1].nome = novoNome
+
+        alert("Operação realizada com sucesso")
+
+        hospedes()
+
+    } else if (opcao === 6) {
+
+        // REMOVER CADASTRO
+        let listaOrdenada = [...hospedesCadastrados]
+
+        listaOrdenada.sort(function(a, b) {
+            return a.nome.localeCompare(b.nome)
+        })
+
+        let lista = ""
+
+        for (let i = 0; i < listaOrdenada.length; i++) {
+
+            lista +=
+                "[" + (i + 1) + "] " +
+                listaOrdenada[i].nome +
+                "\n"
+        }
+
+        if (lista === "") {
+
+            alert("Nenhum hóspede cadastrado.")
+            hospedes()
+            return
+        }
+
+        let indice = parseInt(
+            prompt(
+                "HÓSPEDES\n\n" +
+                lista +
+                "\nInforme o índice que deseja remover:"
+            )
+        )
+
+        if (
+            isNaN(indice) ||
+            indice < 1 ||
+            indice > listaOrdenada.length
+        ) {
+
+            alert("Hóspede não encontrado")
+            hospedes()
+            return
+        }
+
+        let hospedeRemovido = listaOrdenada[indice - 1]
+
+        let posicaoOriginal =
+            hospedesCadastrados.indexOf(hospedeRemovido)
+
+        hospedesCadastrados.splice(posicaoOriginal, 1)
+
+        alert("Operação realizada com sucesso")
+
+        hospedes()
+
+    } else if (opcao === 7) {
+
+        // VOLTAR AO MENU PRINCIPAL
+        menuPrincipal()
+
+    } else {
+
+        alert("Opção inválida!")
+        hospedes()
+    }
 }
 
 function eventos() {
