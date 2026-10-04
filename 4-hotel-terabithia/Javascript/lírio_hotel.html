@@ -7,7 +7,7 @@
 </head>
 <body>
     <script>
-
+    // 3.1 (Identidade e autenticação)
  let hotel = "Lírio"
 
 window.alert("Bem-vindo ao " + hotel)
@@ -16,19 +16,116 @@ let nome = prompt("Insira seu nome:")
 
 alert("Olá " + nome)
 
-let senhaCorreta = 2678
+let senhaCorreta = "2678"
+let acessoLiberado = false
 
 for (let tentativa = 1; tentativa <= 3; tentativa++) {
     let senhaDigitada = prompt("Senha:")
-    
+
     if (senhaDigitada == senhaCorreta) {
         alert("Senha correta!")
         alert("Bem-vindo ao Hotel " + hotel + ", " + nome + ". É um imenso prazer ter você por aqui!")
+        acessoLiberado = true
         break
     } else {
         alert("Senha incorreta!")
     }
 }
+
+if (!acessoLiberado) {
+    alert("Acesso negado. Número máximo de tentativas excedido.")
+}
+
+// 3.2 Menu principal e organização
+
+function menuPrincipal() {
+    let escolha = parseInt(prompt(
+        "MENU PRINCIPAL\n\n" +
+        "1. Reservas de Quartos\n" +
+        "2. Cadastro de Hóspedes\n" +
+        "3. Eventos\n" +
+        "4. Ar-Condicionado\n" +
+        "5. Abastecimento\n" +
+        "6. Relatórios Operacionais\n" +
+        "7. Sair"
+    ))
+
+    if (escolha === 1) {
+        reservas()
+    } else if (escolha === 2) {
+        hospedes()
+    } else if (escolha === 3) {
+        eventos()
+    } else if (escolha === 4) {
+        arCondicionado()
+    } else if (escolha === 5) {
+        abastecimento()
+    } else if (escolha === 6) {
+        relatorios()
+    } else if (escolha === 7) {
+        sair()
+    } else {
+        erroMenu()
+    }
+}
+function reservas() {
+    alert("Reservas de Quartos")
+    menuPrincipal()
+}
+
+function hospedes() {
+    alert("Cadastro de Hóspedes")
+    menuPrincipal()
+}
+
+function eventos() {
+    alert("Eventos")
+    menuPrincipal()
+}
+
+function arCondicionado() {
+    alert("Ar-Condicionado")
+    menuPrincipal()
+}
+
+function abastecimento() {
+    alert("Abastecimento")
+    menuPrincipal()
+}
+
+function relatorios() {
+    alert("Relatórios Operacionais")
+    menuPrincipal()
+}
+
+function erroMenu() {
+    alert("Opção inválida!")
+    menuPrincipal()
+}
+
+function sair() {
+    alert("Muito obrigado e até logo, " + nome + ".")
+}
+
+//3.3 Regras de implementação
+
+let quartos = []
+let hospedesCadastrados = []
+let reservasConfirmadas = []
+let eventosConfirmados = []
+
+for (let i = 1; i <= 20; i++) {
+    quartos.push({
+        numero: i,
+        ocupado: false
+    })
+}
+if (acessoLiberado) {
+    menuPrincipal()
+}
+
+// 4) Subprograma 1 — Reservas de Quartos (nível avançado)
+// 4.1 Visão geral
     </script>
 </body>
 </html>

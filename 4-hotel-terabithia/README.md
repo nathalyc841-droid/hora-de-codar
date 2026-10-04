@@ -68,6 +68,13 @@ Menu mínimo:
 - Padronizar mensagens e formatação monetária.
 - Estruturas em memória são suficientes (sem banco).
 
+
+- O hotel possui **20 quartos**, inicialmente livres.
+- Utilize funções/métodos separados por responsabilidade.
+- Não usar variáveis globais sem justificativa.
+- Padronizar mensagens e formatação monetária.
+- Estruturas em memória são suficientes (sem banco).
+
 ---
 
 ## 4) Subprograma 1 — Reservas de Quartos (nível avançado)
