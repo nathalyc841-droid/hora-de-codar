@@ -521,3 +521,5 @@ Formato recomendado: tabela textual alinhada.
 3. Evidências de teste (capturas ou logs)
 4. Breve documentação da arquitetura modular adotada
 
+
+

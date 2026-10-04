@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Hotel Lírio - Sistema Interno</title>
 </head>
 <body>
     <script>
@@ -22,7 +22,7 @@ let acessoLiberado = false
 for (let tentativa = 1; tentativa <= 3; tentativa++) {
     let senhaDigitada = prompt("Senha:")
 
-    if (senhaDigitada == senhaCorreta) {
+    if (senhaDigitada === senhaCorreta) {
         alert("Senha correta!")
         alert("Bem-vindo ao Hotel " + hotel + ", " + nome + ". É um imenso prazer ter você por aqui!")
         acessoLiberado = true
@@ -154,15 +154,21 @@ let quartoEscolhido= quartos[numeroQuarto - 1]
 if (quartoEscolhido.ocupado) {
     alert("Quarto já está ocupado.")
 
-let quartosLivres = ""
+let quartosLivres = []
 
     for (let i = 0; i < quartos.length; i++) {
         if (!quartos[i].ocupado) {
-        quartosLivres += quartos[i].numero + " "
+        quartosLivres.push(quartos[i].numero)
         }
     }
 
-    alert("Quartos livres: " + quartosLivres)
+    alert("Quartos livres: " + quartosLivres.join(","))
+
+if (quartosLivres.length === 0) {
+        alert("Não há quartos livres no momento.")
+        menuPrincipal()
+        return
+    }
 
  numeroQuarto = parseInt(prompt("Escolha outro quarto (1-20):"))
 
@@ -199,8 +205,12 @@ let quartosLivres = ""
     )
 
     // confirmação
-    let confirma = prompt(nomeHospede + ", confirma a reserva? (S/N):").toUpperCase()
+    let confirma = prompt(nome + ", confirma a reserva? (S/N)").toUpperCase()
 
+while (confirma !== "S" && confirma !== "N") {
+    alert("Opção inválida. Digite S ou N.")
+    confirma = prompt(nome + ", confirma a reserva? (S/N)").toUpperCase()
+}
     if (confirma === "S") {
         quartoEscolhido.ocupado = true
 
@@ -210,10 +220,25 @@ let quartosLivres = ""
             dias: quantidadeDias,
             total: valorTotal
         })
-        alert("Reserva confirmada.")
+        alert("Reserva efetuada com sucesso.")
     } else {
         alert("Reserva não efetuada.")
     }
+
+// MAPA DOS QUARTOS
+let mapa = "MAPA DOS QUARTOS\n\n"
+
+for (let i = 0; i < quartos.length; i++) {
+    let status = quartos[i].ocupado ? "O" : "L"
+
+    mapa += quartos[i].numero + ":" + status + "\t"
+
+    if ((i + 1) % 5 === 0) {
+        mapa += "\n"
+    }
+}
+
+alert(mapa)
 
     menuPrincipal()
 }
@@ -720,9 +745,12 @@ function eventos() {
     // CONFIRMAÇÃO
     // =========================
 
-    let confirma = prompt(
-        "Confirmar reserva? (S/N)"
-    ).toUpperCase()
+    let confirma = prompt(nome + ", confirma a reserva? (S/N)").toUpperCase()
+
+while (confirma !== "S" && confirma !== "N") {
+    alert("Opção inválida. Digite S ou N.")
+    confirma = prompt(nome + ", confirma a reserva? (S/N)").toUpperCase()
+}
 
     if (confirma === "S") {
 
@@ -751,17 +779,402 @@ function eventos() {
 }
 
 function arCondicionado() {
-    alert("Ar-Condicionado")
+
+    alert("AR-CONDICIONADO")
+
+    let orcamentos = []
+
+    let continuar = "S"
+
+    while (continuar === "S") {
+
+        let empresa = prompt("Nome da empresa:")
+
+        let valorAparelho = parseFloat(
+            prompt("Valor por aparelho:")
+        )
+
+        let quantidade = parseInt(
+            prompt("Quantidade de aparelhos:")
+        )
+
+        let percentualDesconto = parseFloat(
+            prompt("Desconto (%):")
+        )
+
+        let minimoDesconto = parseInt(
+            prompt("Mínimo para desconto:")
+        )
+
+        let deslocamento = parseFloat(
+            prompt("Valor fixo de deslocamento:")
+        )
+
+        // Valor bruto
+
+        let bruto =
+            valorAparelho * quantidade
+
+        // Desconto
+
+        let valorDesconto = 0
+
+        if (quantidade >= minimoDesconto) {
+
+            valorDesconto =
+                bruto * (percentualDesconto / 100)
+        }
+
+        // Total
+
+        let total =
+            bruto - valorDesconto + deslocamento
+
+        alert(
+            "O serviço de " +
+            empresa +
+            " custará R$ " +
+            total.toFixed(2).replace(".", ",")
+        )
+
+        // Guarda o orçamento
+
+        orcamentos.push({
+            empresa: empresa,
+            total: total
+        })
+
+       if (orcamentos.length < 2) {
+    alert("É necessário informar pelo menos duas empresas.")
+    continuar = "S" 
+}else{ 
+    continuar = prompt(
+        "Deseja informar novos dados, " +
+        nome +
+        "? (S/N)"
+    ).toUpperCase()
+}
+    }
+
+    // =========================
+    // COMPARAÇÃO DOS ORÇAMENTOS
+    // =========================
+
+    let menorOrcamento = orcamentos[0]
+    let maiorOrcamento = orcamentos[0]
+
+    for (let i = 1; i < orcamentos.length; i++) {
+
+        if (orcamentos[i].total < menorOrcamento.total) {
+            menorOrcamento = orcamentos[i]
+        }
+
+        if (orcamentos[i].total > maiorOrcamento.total) {
+            maiorOrcamento = orcamentos[i]
+        }
+    }
+
+
+    // Diferença percentual entre o menor e o maior
+
+    let diferencaPercentual =
+        ((maiorOrcamento.total - menorOrcamento.total) /
+        menorOrcamento.total) * 100
+
+
+    alert(
+        "Melhor orçamento: " +
+        menorOrcamento.empresa +
+        " — R$ " +
+        menorOrcamento.total.toFixed(2).replace(".", ",") +
+        "\n\n" +
+
+        "Maior orçamento: " +
+        maiorOrcamento.empresa +
+        " — R$ " +
+        maiorOrcamento.total.toFixed(2).replace(".", ",") +
+        "\n\n" +
+
+        "Diferença percentual: " +
+        diferencaPercentual.toFixed(2).replace(".", ",") +
+        "%"
+    )
+
     menuPrincipal()
 }
 
 function abastecimento() {
-    alert("Abastecimento")
+
+    alert("ABASTECIMENTO")
+
+    const litrosTanque = 42
+
+    // =========================
+    // PREÇOS - WAYNE OIL
+    // =========================
+
+    let alcoolWayne = parseFloat(
+        prompt("Wayne Oil - Preço do álcool:")
+    )
+
+    let gasolinaWayne = parseFloat(
+        prompt("Wayne Oil - Preço da gasolina:")
+    )
+
+
+    // =========================
+    // PREÇOS - STARK PETROL
+    // =========================
+
+    let alcoolStark = parseFloat(
+        prompt("Stark Petrol - Preço do álcool:")
+    )
+
+    let gasolinaStark = parseFloat(
+        prompt("Stark Petrol - Preço da gasolina:")
+    )
+
+
+    // =========================
+    // WAYNE OIL
+    // =========================
+
+    let combustivelWayne
+    let custoWayne
+
+    if (alcoolWayne <= gasolinaWayne * 0.70) {
+
+        combustivelWayne = "Álcool"
+        custoWayne = alcoolWayne * litrosTanque
+
+    } else {
+
+        combustivelWayne = "Gasolina"
+        custoWayne = gasolinaWayne * litrosTanque
+    }
+
+
+    // =========================
+    // STARK PETROL
+    // =========================
+
+    let combustivelStark
+    let custoStark
+
+    if (alcoolStark <= gasolinaStark * 0.70) {
+
+        combustivelStark = "Álcool"
+        custoStark = alcoolStark * litrosTanque
+
+    } else {
+
+        combustivelStark = "Gasolina"
+        custoStark = gasolinaStark * litrosTanque
+    }
+
+
+    // =========================
+    // RESULTADO POR POSTO
+    // =========================
+
+    alert(
+        "Wayne Oil: melhor opção = " +
+        combustivelWayne +
+        " | Total (42L) = R$ " +
+        custoWayne.toFixed(2).replace(".", ",") +
+
+        "\n\n" +
+
+        "Stark Petrol: melhor opção = " +
+        combustivelStark +
+        " | Total (42L) = R$ " +
+        custoStark.toFixed(2).replace(".", ",")
+    )
+
+
+    // =========================
+    // RANKING
+    // =========================
+
+    let ranking = [
+        {
+            posto: "Wayne Oil",
+            combustivel: combustivelWayne,
+            total: custoWayne
+        },
+        {
+            posto: "Stark Petrol",
+            combustivel: combustivelStark,
+            total: custoStark
+        }
+    ]
+
+    ranking.sort(function(a, b) {
+        return a.total - b.total
+    })
+
+
+    let mensagemRanking =
+        "RANKING DE ABASTECIMENTO\n\n"
+
+    for (let i = 0; i < ranking.length; i++) {
+
+        mensagemRanking +=
+            (i + 1) +
+            "º " +
+            ranking[i].posto +
+            " - " +
+            ranking[i].combustivel +
+            " - R$ " +
+            ranking[i].total.toFixed(2).replace(".", ",") +
+            "\n"
+    }
+
+
+    // =========================
+    // POSTO MAIS BARATO
+    // =========================
+
+    let postoMaisBarato = ranking[0]
+
+    mensagemRanking +=
+        "\n" +
+        nome +
+        ", é mais barato abastecer com " +
+        postoMaisBarato.combustivel +
+        " no posto " +
+        postoMaisBarato.posto +
+        "."
+
+    alert(mensagemRanking)
+
     menuPrincipal()
 }
 
 function relatorios() {
-    alert("Relatórios Operacionais")
+
+    alert("RELATÓRIOS OPERACIONAIS")
+
+    // =========================
+    // RESERVAS DE QUARTOS
+    // =========================
+
+    let totalReservas =
+        reservasConfirmadas.length
+
+
+    // =========================
+    // TAXA DE OCUPAÇÃO
+    // =========================
+
+    let quartosOcupados = 0
+
+    for (let i = 0; i < quartos.length; i++) {
+
+        if (quartos[i].ocupado) {
+            quartosOcupados++
+        }
+    }
+
+    let taxaOcupacao =
+        (quartosOcupados / 20) * 100
+
+
+    // =========================
+    // HÓSPEDES
+    // =========================
+
+    let totalHospedes =
+        hospedesCadastrados.length
+
+
+    // =========================
+    // EVENTOS
+    // =========================
+
+    let totalEventos =
+        eventosConfirmados.length
+
+
+    // =========================
+    // RECEITA DE HOSPEDAGEM
+    // =========================
+
+    let receitaHospedagem = 0
+
+    for (let i = 0; i < reservasConfirmadas.length; i++) {
+
+        receitaHospedagem +=
+            reservasConfirmadas[i].total
+    }
+
+
+    // =========================
+    // RECEITA DE EVENTOS
+    // =========================
+
+    let receitaEventos = 0
+
+    for (let i = 0; i < eventosConfirmados.length; i++) {
+
+        receitaEventos +=
+            eventosConfirmados[i].total
+    }
+
+
+    // =========================
+    // RECEITA TOTAL
+    // =========================
+
+    let receitaTotal =
+        receitaHospedagem + receitaEventos
+
+
+    // =========================
+    // RELATÓRIO
+    // =========================
+
+    alert(
+    "RELATÓRIOS OPERACIONAIS\n\n" +
+
+    "INDICADOR                         VALOR\n" +
+    "----------------------------------------\n" +
+
+    "Reservas confirmadas              " +
+    totalReservas +
+    "\n" +
+
+    "Quartos ocupados                  " +
+    quartosOcupados +
+    " / 20\n" +
+
+    "Taxa de ocupação                  " +
+    taxaOcupacao.toFixed(2).replace(".", ",") +
+    "%\n" +
+
+    "Hóspedes cadastrados              " +
+    totalHospedes +
+    "\n" +
+
+    "Eventos confirmados               " +
+    totalEventos +
+    "\n\n" +
+
+    "RECEITAS\n" +
+    "----------------------------------------\n" +
+
+    "Hospedagem                        R$ " +
+    receitaHospedagem.toFixed(2).replace(".", ",") +
+    "\n" +
+
+    "Eventos                           R$ " +
+    receitaEventos.toFixed(2).replace(".", ",") +
+    "\n" +
+
+    "TOTAL                             R$ " +
+    receitaTotal.toFixed(2).replace(".", ",")
+)
+
     menuPrincipal()
 }
 
