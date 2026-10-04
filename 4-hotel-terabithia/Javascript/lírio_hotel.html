@@ -120,7 +120,7 @@ let nomeTipoQuarto
 
 if (tipoQuarto === "S") {
     fatorQuarto = 1.00
-    nomeTipoQuarto= "Strandard"
+    nomeTipoQuarto= "Standard"
 } else if (tipoQuarto === "E") {
     fatorQuarto = 1.35
     nomeTipoQuarto= "Executivo"
@@ -144,7 +144,7 @@ while (
     alert("Número de quarto inválido.")
 
     numeroQuarto = parseInt(
-        promp("Escolha um quarto (1-20):")
+        prompt("Escolha um quarto (1-20):")
     )
 }
 let quartoEscolhido= quartos[numeroQuarto - 1]
