@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+ let hotel = "Lírio"
+
+window.alert("Bem-vindo ao " + hotel)
+
+let nome = prompt("Insira seu nome:")
+
+alert("Olá " + nome)
+
+let senhaCorreta = 2678
+
+for (let tentativa = 1; tentativa <= 3; tentativa++) {
+    let senhaDigitada = prompt("Senha:")
+    
+    if (senhaDigitada == senhaCorreta) {
+        alert("Senha correta!")
+        alert("Bem-vindo ao Hotel " + hotel + ", " + nome + ". É um imenso prazer ter você por aqui!")
+        break
+    } else {
+        alert("Senha incorreta!")
+    }
+}
+    </script>
+</body>
+</html>
