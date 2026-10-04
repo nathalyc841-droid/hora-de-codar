@@ -68,27 +68,68 @@ function menuPrincipal() {
         erroMenu()
     }
 }
+// 4.reservas de quarto
 function reservas() {
     alert("RESERVAS DE QUARTOS")
 
 let valorDiaria = parseFloat(prompt("Informe o valor da diária:"))
 let quantidadeDias = parseInt(prompt("Informe a quantidade de diárias:"))
 
- if (valorDiaria <= 0 || quantidadeDias < 1 || quantidadeDias > 30 || isNaN(valorDiaria) || isNaN(quantidadeDias)) {
+ if (valorDiaria <= 0 ||
+    quantidadeDias < 1 ||
+    quantidadeDias > 30 ||
+    isNaN(valorDiaria) ||
+    isNaN(quantidadeDias)
+    ) {
+
  alert("Valor inválido, " + nome)
+
 menuPrincipal()
+
  return
 }
 
 let nomeHospede = prompt("Informe o nome do hóspede:")
+// tipo
+let tipoQuarto = prompt(
+    "Informe o tipo de quarto:\n" +
+    "S - Standard\n" +
+    "E - Executivo\n" +
+    "L - Luxo"
+).toUpperCase()
+
+while (tipoQuarto !== "S" && tipoQuarto !== "E" && tipoQuarto !== "L") {
+    alert("Tipo de quarto inválido.")
+
+     tipoQuarto = prompt(
+        "Informe o tipo de quarto:\n" +
+        "S - Standard\n" +
+        "E - Executivo\n" +
+        "L - Luxo"
+    ).toUpperCase()
+}
+// fator do tipo de quarto
+let fatorQuarto
+
+if (tipoQuarto === "S") {
+    fatorQuarto = 1.00
+} else if (tipoQuarto === "E") {
+    fatorQuarto = 1.35
+} else {
+    fatorQuarto = 1.65
+}
+
+// escolha do quarto
+
 let numeroQuarto = parseInt(prompt("Informe o número do quarto (1-20):"))
 
 while (numeroQuarto < 1 || numeroQuarto > 20 || isNaN(numeroQuarto)) {
     alert("Número de quarto inválido.")
     numeroQuarto = parseInt(prompt("Informe o número do quarto (1-20):"))
     }
-
 let quartoEscolhido = quartos[numeroQuarto - 1]
+
+// verificação de quarto ocupado
 
 if (quartoEscolhido.ocupado) {
     alert("Quarto já está ocupado.")
@@ -117,10 +158,29 @@ let quartosLivres = ""
     }
         quartoEscolhido = quartos[numeroQuarto - 1]
     }
+// calculo da reserva
+    let subtotal = valorDiaria * quantidadeDias * fatorQuarto
+    let taxaServico = subtotal * 0.10
+    let valorTotal = subtotal + taxaServico
 
+    alert(
+        "Subtotal: R$ " + subtotal.toFixed(2) +
+        "\nTaxa de serviço: R$ " + taxaServico.toFixed(2) +
+        "\nTotal: R$ " + valorTotal.toFixed(2)
+    )
+
+    // confirmação
     let confirma = prompt(nomeHospede + ", confirma a reserva? (S/N):").toUpperCase()
 
     if (confirma === "S") {
+        quartoEscolhido.ocupado = true
+
+        reservasConfirmadas.push({
+            hospede: nomeHospede,
+            quarto: numeroQuarto,
+            dias: quantidadeDias,
+            total: valorTotal
+        })
         alert("Reserva confirmada.")
     } else {
         alert("Reserva não efetuada.")
