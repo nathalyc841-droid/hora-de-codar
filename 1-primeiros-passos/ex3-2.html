@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // Leia dois valores. Enquanto o segundo valor for menor ou igual a zero, peça novamente esse mesmo valor. Ao final, mostre a divisão do primeiro pelo segundo.
+       
+     let numero1 = parseInt (prompt ("insira um numero"));
+     let numero2 = parseInt (prompt ("insira um segundo numero"));
+
+    while (numero2 <= 0){
+        numero2= parseInt (prompt("tente novamente "));
+    }
+
+    let divisão = numero1 / numero2 
+        alert ("a dividisão de " + numero1 + " e " + numero2 + " = " + divisão)
+
+    </script>
+</body>
+</html>

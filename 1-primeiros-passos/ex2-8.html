@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    // Leia 4 números, aceitando apenas valores maiores que 0 e menores que 10. Calcule a média e:
+	// - se média > 5, exiba "Você passou no teste";
+	// - caso contrário, exiba "Tente novamente".
+
+        var numero1 = Number (prompt(" Digite o primeiro número "));
+        if (numero1 <= 0 || numero1 >= 10) {
+            alert("Número inválido");
+        }
+
+        var numero2 = Number (prompt(" Digite o segundo número "));
+        if (numero2 <= 0 || numero2 >= 10) {
+             alert ("Número inválido");
+        }
+
+        var numero3 = Number (prompt(" Digite o terceiro número "));
+        if (numero3 <= 0 || numero3 >= 10) {
+            alert ("Número inválido");
+        }
+
+        var numero4 = Number (prompt(" Digite o quarto número "));
+        if (numero4 <= 0 || numero4 >= 10) {
+            alert ("Número inválido");
+        }
+
+        var media = (numero1 + numero2 + numero3 + numero4) / 4;
+        if (media > 5) {
+            alert("Você passou no teste");
+        } else {
+            alert("Tente novamente");
+        }
+        
+    </script>
+</body>
+</html>

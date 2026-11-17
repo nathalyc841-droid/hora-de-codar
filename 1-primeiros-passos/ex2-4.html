@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // Leia 3 valores diferentes e mostre a soma dos 2 maiores.
+
+        var numero1 = Number (prompt("insira um numero:"));
+        var numero2 = Number (prompt("insira um segundo numero diferente:"));
+        var numero3 = Number (prompt("insira um terceiro numero diferente:"));
+
+        if (numero1 > numero2 && numero2 >numero3) {
+            alert (numero1 + numero2 + " é a soma dos dois maiores");
+
+        } else if (numero1 > numero3 && numero3 > numero2) {
+            alert (numero1 + numero3 + "  é a soma dos dois maiores");
+
+        } else if (numero2 > numero1 && numero1 > numero3) {
+            alert (numero2 + numero1 + " é a soma dos dois maiores");
+
+        } else if (numero2 > numero3 && numero3 > numero1) {
+            alert (numero2 + numero3 + " é a soma dos dois maiores");
+
+        }   else if (numero3 > numero1 && numero1 > numero2) {
+                alert (numero3 + numero1 + " é a soma dos dois maiores");
+
+        } else if (numero3 > numero2 && numero2 > numero1) {
+            alert (numero3 + numero2 + " é a soma dos dois maiores");
+        }
+
+
+
+    </script>
+    
+</body>
+</html>

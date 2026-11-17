@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Lírio - Sistema Interno</title>
+</head>
+<body>
+    <script>
+    // 3.1 (Identidade e autenticação)
+ let hotel = "Lírio"
+
+window.alert("Bem-vindo ao " + hotel)
+
+let nome = prompt("Insira seu nome:")
+
+alert("Olá " + nome)
+
+let senhaCorreta = "2678"
+let acessoLiberado = false
+
+for (let tentativa = 1; tentativa <= 3; tentativa++) {
+    let senhaDigitada = prompt("Senha:")
+
+    if (senhaDigitada === senhaCorreta) {
+        alert("Senha correta!")
+        alert("Bem-vindo ao Hotel " + hotel + ", " + nome + ". É um imenso prazer ter você por aqui!")
+        acessoLiberado = true
+        break
+    } else {
+        alert("Senha incorreta!")
+    }
+}
+
+if (!acessoLiberado) {
+    alert("Acesso negado. Número máximo de tentativas excedido.")
+}
+
+// 3.2 Menu principal e organização
+
+function menuPrincipal() {
+    let escolha = parseInt(prompt(
+        "MENU PRINCIPAL\n\n" +
+        "1. Reservas de Quartos\n" +
+        "2. Cadastro de Hóspedes\n" +
+        "3. Eventos\n" +
+        "4. Ar-Condicionado\n" +
+        "5. Abastecimento\n" +
+        "6. Relatórios Operacionais\n" +
+        "7. Sair"
+    ))
+
+    if (escolha === 1) {
+        reservas()
+    } else if (escolha === 2) {
+        hospedes()
+    } else if (escolha === 3) {
+        eventos()
+    } else if (escolha === 4) {
+        arCondicionado()
+    } else if (escolha === 5) {
+        abastecimento()
+    } else if (escolha === 6) {
+        relatorios()
+    } else if (escolha === 7) {
+        sair()
+    } else {
+        erroMenu()
+    }
+}
+// 4.reservas de quarto
+function reservas() {
+    alert("RESERVAS DE QUARTOS")
+
+let valorDiaria = parseFloat(prompt("Informe o valor da diária:"))
+let quantidadeDias = parseInt(prompt("Informe a quantidade de diárias:"))
+
+ if ( 
+    isNaN(valorDiaria) ||
+    isNaN(quantidadeDias) ||
+    valorDiaria <= 0 ||
+    quantidadeDias < 1 ||
+    quantidadeDias > 30 
+   
+ ) {
+
+ alert("Valor inválido, " + nome)
+
+menuPrincipal()
+
+ return
+}
+
+let nomeHospede = prompt("Informe o nome do hóspede:")
+
+// tipo de quarto
+let tipoQuarto = prompt(
+    " Tipo de quarto (S/E/L):\n" +
+    "S - Standard\n" +
+    "E - Executivo\n" +
+    "L - Luxo"
+).toUpperCase()
+
+while (tipoQuarto !== "S" &&
+    tipoQuarto !== "E" &&
+    tipoQuarto !== "L"
+) {
+    alert("Tipo de quarto inválido.")
+
+     tipoQuarto = prompt(
+        "Tipo de quarto (S/E/L):\n" +
+        "S - Standard\n" +
+        "E - Executivo\n" +
+        "L - Luxo"
+    ).toUpperCase()
+}
+// fator do tipo de quarto
+let fatorQuarto
+let nomeTipoQuarto
+
+if (tipoQuarto === "S") {
+    fatorQuarto = 1.00
+    nomeTipoQuarto= "Standard"
+} else if (tipoQuarto === "E") {
+    fatorQuarto = 1.35
+    nomeTipoQuarto= "Executivo"
+} else {
+    fatorQuarto = 1.65
+    nomeTipoQuarto="Luxo"
+}
+
+// escolha do quarto
+
+let numeroQuarto = parseInt(
+    prompt("Escolha um quarto (1-20):")
+)
+
+
+while (
+    isNaN(numeroQuarto)||
+    numeroQuarto < 1 ||
+    numeroQuarto > 20
+){
+    alert("Número de quarto inválido.")
+
+    numeroQuarto = parseInt(
+        prompt("Escolha um quarto (1-20):")
+    )
+}
+let quartoEscolhido= quartos[numeroQuarto - 1]
+
+// verificação de quarto ocupado
+
+if (quartoEscolhido.ocupado) {
+    alert("Quarto já está ocupado.")
+
+let quartosLivres = []
+
+    for (let i = 0; i < quartos.length; i++) {
+        if (!quartos[i].ocupado) {
+        quartosLivres.push(quartos[i].numero)
+        }
+    }
+
+    alert("Quartos livres: " + quartosLivres.join(","))
+
+if (quartosLivres.length === 0) {
+        alert("Não há quartos livres no momento.")
+        menuPrincipal()
+        return
+    }
+
+ numeroQuarto = parseInt(prompt("Escolha outro quarto (1-20):"))
+
+ while (numeroQuarto < 1 || numeroQuarto > 20 || isNaN(numeroQuarto) || quartos[numeroQuarto - 1].ocupado) {
+
+     if (numeroQuarto >= 1 && numeroQuarto <= 20 && quartos[numeroQuarto - 1].ocupado) {
+        alert("Quarto já está ocupado.")
+    } else {
+        alert("Número de quarto inválido.")
+    }
+
+    numeroQuarto = parseInt(
+        prompt("Escolha outro quarto (1-20):")
+    )
+    }
+        quartoEscolhido = quartos[numeroQuarto - 1]
+    }
+// calculo da reserva
+    let subtotal = valorDiaria * quantidadeDias * fatorQuarto
+    let taxaServico = subtotal * 0.10
+    let valorTotal = subtotal + taxaServico
+
+    // resumo da reserva
+    alert(
+        "Resumo:\n\n" +
+        "Hóspede: " + nomeHospede + "\n" +
+        "Quarto: " + numeroQuarto + " (" + nomeTipoQuarto + ")\n" +
+        "Subtotal: R$ " + 
+        subtotal.toFixed(2).replace(".", ",") + "\n" +
+        "Taxa de serviço (10%): R$ " +
+        taxaServico.toFixed(2).replace(".", ",") + "\n" +
+        "Total: R$ " + 
+        valorTotal.toFixed(2).replace(".", ",")
+    )
+
+    // confirmação
+    let confirma = prompt(nome + ", confirma a reserva? (S/N)").toUpperCase()
+
+while (confirma !== "S" && confirma !== "N") {
+    alert("Opção inválida. Digite S ou N.")
+    confirma = prompt(nome + ", confirma a reserva? (S/N)").toUpperCase()
+}
+    if (confirma === "S") {
+        quartoEscolhido.ocupado = true
+
+        reservasConfirmadas.push({
+            hospede: nomeHospede,
+            quarto: numeroQuarto,
+            dias: quantidadeDias,
+            total: valorTotal
+        })
+        alert("Reserva efetuada com sucesso.")
+    } else {
+        alert("Reserva não efetuada.")
+    }
+
+// MAPA DOS QUARTOS
+let mapa = "MAPA DOS QUARTOS\n\n"
+
+for (let i = 0; i < quartos.length; i++) {
+    let status = quartos[i].ocupado ? "O" : "L"
+
+    mapa += quartos[i].numero + ":" + status + "\t"
+
+    if ((i + 1) % 5 === 0) {
+        mapa += "\n"
+    }
+}
+
+alert(mapa)
+
+    menuPrincipal()
+}
+
+function hospedes() {
+
+    let opcao = parseInt(prompt(
+        "CADASTRO DE HÓSPEDES\n\n" +
+        "1. Cadastrar\n" +
+        "2. Pesquisar por nome exato\n" +
+        "3. Pesquisar por prefixo\n" +
+        "4. Listar ordenado (A-Z)\n" +
+        "5. Atualizar cadastro\n" +
+        "6. Remover cadastro\n" +
+        "7. Voltar"
+    ))
+
+    if (opcao === 1) {
+
+        if (hospedesCadastrados.length >= 15) {
+            alert("Máximo de cadastros atingido")
+            hospedes()
+            return
+        }
+
+        let nomeHospede = prompt("Nome do hóspede:")
+
+        let existe = false
+
+        for (let i = 0; i < hospedesCadastrados.length; i++) {
+
+            if (hospedesCadastrados[i].nome === nomeHospede) {
+                existe = true
+                break
+            }
+        }
+
+        if (existe) {
+            alert("Hóspede já cadastrado")
+        } else {
+
+            hospedesCadastrados.push({
+                nome: nomeHospede,
+                dataCadastro: new Date()
+            })
+
+            alert("Hóspede cadastrado com sucesso.")
+        }
+
+        hospedes()
+
+    } else if (opcao === 2) {
+
+        let nomePesquisa = prompt("Nome do hóspede:")
+        let encontrado = false
+
+        for (let i = 0; i < hospedesCadastrados.length; i++) {
+
+            if (hospedesCadastrados[i].nome === nomePesquisa) {
+
+                alert("Hóspede " + nomePesquisa + " foi encontrado")
+                encontrado = true
+                break
+            }
+        }
+
+        if (!encontrado) {
+            alert("Hóspede não encontrado")
+        }
+
+        hospedes()
+
+    } else if (opcao === 3) {
+
+        let prefixo = prompt("Prefixo:")
+        let resultados = ""
+
+        for (let i = 0; i < hospedesCadastrados.length; i++) {
+
+            if (
+                hospedesCadastrados[i].nome
+                    .toLowerCase()
+                    .startsWith(prefixo.toLowerCase())
+            ) {
+
+                resultados +=
+                    "[" + (i + 1) + "] " +
+                    hospedesCadastrados[i].nome +
+                    "\n"
+            }
+        }
+
+        if (resultados === "") {
+            alert("Hóspede não encontrado")
+        } else {
+            alert("Resultados:\n\n" + resultados)
+        }
+
+        hospedes()
+
+    } else if (opcao === 4) {
+
+        let listaOrdenada = [...hospedesCadastrados]
+
+        listaOrdenada.sort(function(a, b) {
+            return a.nome.localeCompare(b.nome)
+        })
+
+        let lista = ""
+
+        for (let i = 0; i < listaOrdenada.length; i++) {
+
+            lista +=
+                "[" + (i + 1) + "] " +
+                listaOrdenada[i].nome +
+                " - " +
+                listaOrdenada[i].dataCadastro.toLocaleString() +
+                "\n"
+        }
+
+        if (lista === "") {
+            alert("Nenhum hóspede cadastrado.")
+        } else {
+            alert(lista)
+        }
+
+        hospedes()
+
+    } else if (opcao === 5) {
+
+        let listaOrdenada = [...hospedesCadastrados]
+
+        listaOrdenada.sort(function(a, b) {
+            return a.nome.localeCompare(b.nome)
+        })
+
+        let lista = ""
+
+        for (let i = 0; i < listaOrdenada.length; i++) {
+
+            lista +=
+                "[" + (i + 1) + "] " +
+                listaOrdenada[i].nome +
+                "\n"
+        }
+
+        if (lista === "") {
+            alert("Nenhum hóspede cadastrado.")
+            hospedes()
+            return
+        }
+
+        let indice = parseInt(
+            prompt(
+                "HÓSPEDES\n\n" +
+                lista +
+                "\nInforme o índice que deseja atualizar:"
+            )
+        )
+
+        if (
+            isNaN(indice) ||
+            indice < 1 ||
+            indice > listaOrdenada.length
+        ) {
+
+            alert("Hóspede não encontrado")
+            hospedes()
+            return
+        }
+
+        let novoNome = prompt("Novo nome do hóspede:")
+
+        let nomeDuplicado = false
+
+        for (let i = 0; i < hospedesCadastrados.length; i++) {
+
+            if (
+                hospedesCadastrados[i].nome === novoNome &&
+                hospedesCadastrados[i] !== listaOrdenada[indice - 1]
+            ) {
+
+                nomeDuplicado = true
+                break
+            }
+        }
+
+        if (nomeDuplicado) {
+
+            alert("Hóspede já cadastrado")
+
+        } else {
+
+            listaOrdenada[indice - 1].nome = novoNome
+
+            alert("Operação realizada com sucesso")
+        }
+
+        hospedes()
+
+    } else if (opcao === 6) {
+
+    let listaOrdenada = [...hospedesCadastrados]
+
+        listaOrdenada.sort(function(a, b) {
+            return a.nome.localeCompare(b.nome)
+        })
+
+        let lista = ""
+
+        for (let i = 0; i < listaOrdenada.length; i++) {
+
+            lista +=
+                "[" + (i + 1) + "] " +
+                listaOrdenada[i].nome +
+                "\n"
+        }
+
+        if (lista === "") {
+        alert("Nenhum hóspede cadastrado.")
+            hospedes()
+            return
+        }
+
+        let indice = parseInt(
+            prompt(
+                "HÓSPEDES\n\n" +
+                lista +
+                "\nInforme o índice que deseja remover:"
+            )
+        )
+
+        if (
+            isNaN(indice) ||
+            indice < 1 ||
+            indice > listaOrdenada.length
+        ) {
+
+            alert("Hóspede não encontrado")
+            hospedes()
+            return
+        }
+
+        let hospedeRemovido = listaOrdenada[indice - 1]
+
+        let posicaoOriginal =
+            hospedesCadastrados.indexOf(hospedeRemovido)
+
+        hospedesCadastrados.splice(posicaoOriginal, 1)
+
+        alert("Operação realizada com sucesso")
+
+        hospedes()
+
+    } else if (opcao === 7) {
+
+     menuPrincipal()
+
+    } else {
+
+        alert("Opção inválida!")
+        hospedes()
+    }
+}
+
+function eventos() {
+
+    alert("EVENTOS")
+
+    // =========================
+    // PARTE A - AUDITÓRIO
+    // =========================
+
+    let convidados = parseInt(
+        prompt("Número de convidados:")
+    )
+
+    if (
+        isNaN(convidados) ||
+        convidados < 0 ||
+        convidados > 350
+    ) {
+
+        alert("Número de convidados inválido")
+        menuPrincipal()
+        return
+    }
+
+    let auditorio
+    let cadeirasExtras = 0
+
+    if (convidados <= 220) {
+
+        auditorio = "Laranja"
+
+        if (convidados > 150) {
+            cadeirasExtras = convidados - 150
+        }
+
+    } else {
+
+        auditorio = "Colorado"
+    }
+
+    let mensagemAuditorio =
+        "Auditório selecionado: " + auditorio
+
+    if (auditorio === "Laranja" && cadeirasExtras > 0) {
+        mensagemAuditorio +=
+            " (" + cadeirasExtras + " cadeiras adicionais)"
+    }
+
+    alert(mensagemAuditorio)
+
+
+    // =========================
+    // PARTE B - AGENDA
+    // =========================
+
+    let dia = prompt(
+        "Dia da semana (segunda, terça, quarta, quinta, sexta, sábado ou domingo):"
+    ).toLowerCase()
+
+    let horaInicial = parseInt(
+        prompt("Hora inicial:")
+    )
+
+    let duracao = parseInt(
+        prompt("Duração do evento em horas (1-12):")
+    )
+
+    // Validação da hora e duração
+
+    if (
+        isNaN(horaInicial) ||
+        horaInicial < 0 ||
+        horaInicial > 23
+    ) {
+
+        alert("Hora inicial inválida")
+        menuPrincipal()
+        return
+    }
+
+    if (
+        isNaN(duracao) ||
+        duracao < 1 ||
+        duracao > 12
+    ) {
+
+        alert("Duração inválida")
+        menuPrincipal()
+        return
+    }
+
+    // Define o horário máximo de acordo com o dia
+
+    let horarioFinalPermitido
+
+    if (
+        dia === "segunda" ||
+        dia === "terça" ||
+        dia === "quarta" ||
+        dia === "quinta" ||
+        dia === "sexta"
+    ) {
+
+        horarioFinalPermitido = 23
+
+    } else if (
+        dia === "sábado" ||
+        dia === "domingo"
+    ) {
+
+        horarioFinalPermitido = 15
+
+    } else {
+
+        alert("Dia da semana inválido")
+        menuPrincipal()
+        return
+    }
+
+    // Verifica se está dentro do horário de funcionamento
+
+    let horaFinal = horaInicial + duracao
+
+    if (
+        horaInicial < 7 ||
+        horaInicial >= horarioFinalPermitido ||
+        horaFinal > horarioFinalPermitido
+    ) {
+
+        alert("Auditório não está disponível nesse horário.")
+        menuPrincipal()
+        return
+    }
+
+    let empresa = prompt("Nome da empresa:")
+
+    alert(
+        "Auditório reservado para " +
+        empresa +
+        ": " +
+        dia +
+        " às " +
+        horaInicial +
+        "hs"
+    )
+
+
+    // =========================
+    // PARTE C - GARÇONS
+    // =========================
+
+    let garconsBase = Math.ceil(convidados / 12)
+
+    let garconsReforco = Math.floor(duracao / 2)
+
+    let totalGarcons =
+        garconsBase + garconsReforco
+
+    let custoGarcons =
+        totalGarcons * duracao * 10.50
+
+
+    // =========================
+    // PARTE D - BUFFET
+    // =========================
+
+    let quantidadeCafe = convidados * 0.2
+
+    let quantidadeAgua = convidados * 0.5
+
+    let quantidadeSalgados = convidados * 7
+
+    let custoCafe =
+        quantidadeCafe * 0.80
+
+    let custoAgua =
+        quantidadeAgua * 0.40
+
+    let custoSalgados =
+        (quantidadeSalgados / 100) * 34
+
+    let custoBuffet =
+        custoCafe +
+        custoAgua +
+        custoSalgados
+
+
+    // =========================
+    // PARTE E - RELATÓRIO
+    // =========================
+
+    let totalEvento =
+        custoGarcons + custoBuffet
+
+    alert(
+        "RELATÓRIO DO EVENTO\n\n" +
+
+        "Auditório: " + auditorio + "\n" +
+
+        "Empresa: " + empresa + "\n" +
+
+        "Dia: " + dia + "\n" +
+
+        "Hora de início: " + horaInicial + "hs\n" +
+
+        "Hora de término: " + horaFinal + "hs\n\n" +
+
+        "Convidados: " + convidados + "\n" +
+
+        "Garçons necessários: " + totalGarcons + "\n" +
+
+        "Duração: " + duracao + " horas\n\n" +
+
+        "Custo com garçons: R$ " +
+        custoGarcons.toFixed(2).replace(".", ",") + "\n\n" +
+
+        "Buffet:\n" +
+
+        "Café: " +
+        quantidadeCafe.toFixed(1).replace(".", ",") +
+        " L\n" +
+
+        "Água: " +
+        quantidadeAgua.toFixed(1).replace(".", ",") +
+        " L\n" +
+
+        "Salgados: " +
+        quantidadeSalgados +
+        " un\n\n" +
+
+        "Custo buffet: R$ " +
+        custoBuffet.toFixed(2).replace(".", ",") + "\n\n" +
+
+        "Total do evento: R$ " +
+        totalEvento.toFixed(2).replace(".", ",")
+    )
+
+
+    // =========================
+    // CONFIRMAÇÃO
+    // =========================
+
+    let confirma = prompt(nome + ", confirma a reserva? (S/N)").toUpperCase()
+
+while (confirma !== "S" && confirma !== "N") {
+    alert("Opção inválida. Digite S ou N.")
+    confirma = prompt(nome + ", confirma a reserva? (S/N)").toUpperCase()
+}
+
+    if (confirma === "S") {
+
+        eventosConfirmados.push({
+            empresa: empresa,
+            auditorio: auditorio,
+            dia: dia,
+            horaInicio: horaInicial,
+            horaFim: horaFinal,
+            convidados: convidados,
+            garcons: totalGarcons,
+            duracao: duracao,
+            custoGarcons: custoGarcons,
+            custoBuffet: custoBuffet,
+    total: totalEvento
+        })
+
+        alert("Reserva efetuada com sucesso.")
+
+    } else {
+
+        alert("Reserva não efetuada.")
+    }
+
+    menuPrincipal()
+}
+
+function arCondicionado() {
+
+    alert("AR-CONDICIONADO")
+
+    let orcamentos = []
+
+    let continuar = "S"
+
+    while (continuar === "S") {
+
+        let empresa = prompt("Nome da empresa:")
+
+        let valorAparelho = parseFloat(
+            prompt("Valor por aparelho:")
+        )
+
+        let quantidade = parseInt(
+            prompt("Quantidade de aparelhos:")
+        )
+
+        let percentualDesconto = parseFloat(
+            prompt("Desconto (%):")
+        )
+
+        let minimoDesconto = parseInt(
+            prompt("Mínimo para desconto:")
+        )
+
+        let deslocamento = parseFloat(
+            prompt("Valor fixo de deslocamento:")
+        )
+
+        // Valor bruto
+
+        let bruto =
+            valorAparelho * quantidade
+
+        // Desconto
+
+        let valorDesconto = 0
+
+        if (quantidade >= minimoDesconto) {
+
+            valorDesconto =
+                bruto * (percentualDesconto / 100)
+        }
+
+        // Total
+
+        let total =
+            bruto - valorDesconto + deslocamento
+
+        alert(
+            "O serviço de " +
+            empresa +
+            " custará R$ " +
+            total.toFixed(2).replace(".", ",")
+        )
+
+        // Guarda o orçamento
+
+        orcamentos.push({
+            empresa: empresa,
+            total: total
+        })
+
+       if (orcamentos.length < 2) {
+    alert("É necessário informar pelo menos duas empresas.")
+    continuar = "S" 
+}else{ 
+    continuar = prompt(
+        "Deseja informar novos dados, " +
+        nome +
+        "? (S/N)"
+    ).toUpperCase()
+}
+    }
+
+    // =========================
+    // COMPARAÇÃO DOS ORÇAMENTOS
+    // =========================
+
+    let menorOrcamento = orcamentos[0]
+    let maiorOrcamento = orcamentos[0]
+
+    for (let i = 1; i < orcamentos.length; i++) {
+
+        if (orcamentos[i].total < menorOrcamento.total) {
+            menorOrcamento = orcamentos[i]
+        }
+
+        if (orcamentos[i].total > maiorOrcamento.total) {
+            maiorOrcamento = orcamentos[i]
+        }
+    }
+
+
+    // Diferença percentual entre o menor e o maior
+
+    let diferencaPercentual =
+        ((maiorOrcamento.total - menorOrcamento.total) /
+        menorOrcamento.total) * 100
+
+
+    alert(
+        "Melhor orçamento: " +
+        menorOrcamento.empresa +
+        " — R$ " +
+        menorOrcamento.total.toFixed(2).replace(".", ",") +
+        "\n\n" +
+
+        "Maior orçamento: " +
+        maiorOrcamento.empresa +
+        " — R$ " +
+        maiorOrcamento.total.toFixed(2).replace(".", ",") +
+        "\n\n" +
+
+        "Diferença percentual: " +
+        diferencaPercentual.toFixed(2).replace(".", ",") +
+        "%"
+    )
+
+    menuPrincipal()
+}
+
+function abastecimento() {
+
+    alert("ABASTECIMENTO")
+
+    const litrosTanque = 42
+
+    // =========================
+    // PREÇOS - WAYNE OIL
+    // =========================
+
+    let alcoolWayne = parseFloat(
+        prompt("Wayne Oil - Preço do álcool:")
+    )
+
+    let gasolinaWayne = parseFloat(
+        prompt("Wayne Oil - Preço da gasolina:")
+    )
+
+
+    // =========================
+    // PREÇOS - STARK PETROL
+    // =========================
+
+    let alcoolStark = parseFloat(
+        prompt("Stark Petrol - Preço do álcool:")
+    )
+
+    let gasolinaStark = parseFloat(
+        prompt("Stark Petrol - Preço da gasolina:")
+    )
+
+
+    // =========================
+    // WAYNE OIL
+    // =========================
+
+    let combustivelWayne
+    let custoWayne
+
+    if (alcoolWayne <= gasolinaWayne * 0.70) {
+
+        combustivelWayne = "Álcool"
+        custoWayne = alcoolWayne * litrosTanque
+
+    } else {
+
+        combustivelWayne = "Gasolina"
+        custoWayne = gasolinaWayne * litrosTanque
+    }
+
+
+    // =========================
+    // STARK PETROL
+    // =========================
+
+    let combustivelStark
+    let custoStark
+
+    if (alcoolStark <= gasolinaStark * 0.70) {
+
+        combustivelStark = "Álcool"
+        custoStark = alcoolStark * litrosTanque
+
+    } else {
+
+        combustivelStark = "Gasolina"
+        custoStark = gasolinaStark * litrosTanque
+    }
+
+
+    // =========================
+    // RESULTADO POR POSTO
+    // =========================
+
+    alert(
+        "Wayne Oil: melhor opção = " +
+        combustivelWayne +
+        " | Total (42L) = R$ " +
+        custoWayne.toFixed(2).replace(".", ",") +
+
+        "\n\n" +
+
+        "Stark Petrol: melhor opção = " +
+        combustivelStark +
+        " | Total (42L) = R$ " +
+        custoStark.toFixed(2).replace(".", ",")
+    )
+
+
+    // =========================
+    // RANKING
+    // =========================
+
+    let ranking = [
+        {
+            posto: "Wayne Oil",
+            combustivel: combustivelWayne,
+            total: custoWayne
+        },
+        {
+            posto: "Stark Petrol",
+            combustivel: combustivelStark,
+            total: custoStark
+        }
+    ]
+
+    ranking.sort(function(a, b) {
+        return a.total - b.total
+    })
+
+
+    let mensagemRanking =
+        "RANKING DE ABASTECIMENTO\n\n"
+
+    for (let i = 0; i < ranking.length; i++) {
+
+        mensagemRanking +=
+            (i + 1) +
+            "º " +
+            ranking[i].posto +
+            " - " +
+            ranking[i].combustivel +
+            " - R$ " +
+            ranking[i].total.toFixed(2).replace(".", ",") +
+            "\n"
+    }
+
+
+    // =========================
+    // POSTO MAIS BARATO
+    // =========================
+
+    let postoMaisBarato = ranking[0]
+
+    mensagemRanking +=
+        "\n" +
+        nome +
+        ", é mais barato abastecer com " +
+        postoMaisBarato.combustivel +
+        " no posto " +
+        postoMaisBarato.posto +
+        "."
+
+    alert(mensagemRanking)
+
+    menuPrincipal()
+}
+
+function relatorios() {
+
+    alert("RELATÓRIOS OPERACIONAIS")
+
+    // =========================
+    // RESERVAS DE QUARTOS
+    // =========================
+
+    let totalReservas =
+        reservasConfirmadas.length
+
+
+    // =========================
+    // TAXA DE OCUPAÇÃO
+    // =========================
+
+    let quartosOcupados = 0
+
+    for (let i = 0; i < quartos.length; i++) {
+
+        if (quartos[i].ocupado) {
+            quartosOcupados++
+        }
+    }
+
+    let taxaOcupacao =
+        (quartosOcupados / 20) * 100
+
+
+    // =========================
+    // HÓSPEDES
+    // =========================
+
+    let totalHospedes =
+        hospedesCadastrados.length
+
+
+    // =========================
+    // EVENTOS
+    // =========================
+
+    let totalEventos =
+        eventosConfirmados.length
+
+
+    // =========================
+    // RECEITA DE HOSPEDAGEM
+    // =========================
+
+    let receitaHospedagem = 0
+
+    for (let i = 0; i < reservasConfirmadas.length; i++) {
+
+        receitaHospedagem +=
+            reservasConfirmadas[i].total
+    }
+
+
+    // =========================
+    // RECEITA DE EVENTOS
+    // =========================
+
+    let receitaEventos = 0
+
+    for (let i = 0; i < eventosConfirmados.length; i++) {
+
+        receitaEventos +=
+            eventosConfirmados[i].total
+    }
+
+
+    // =========================
+    // RECEITA TOTAL
+    // =========================
+
+    let receitaTotal =
+        receitaHospedagem + receitaEventos
+
+
+    // =========================
+    // RELATÓRIO
+    // =========================
+
+    alert(
+    "RELATÓRIOS OPERACIONAIS\n\n" +
+
+    "INDICADOR                         VALOR\n" +
+    "----------------------------------------\n" +
+
+    "Reservas confirmadas              " +
+    totalReservas +
+    "\n" +
+
+    "Quartos ocupados                  " +
+    quartosOcupados +
+    " / 20\n" +
+
+    "Taxa de ocupação                  " +
+    taxaOcupacao.toFixed(2).replace(".", ",") +
+    "%\n" +
+
+    "Hóspedes cadastrados              " +
+    totalHospedes +
+    "\n" +
+
+    "Eventos confirmados               " +
+    totalEventos +
+    "\n\n" +
+
+    "RECEITAS\n" +
+    "----------------------------------------\n" +
+
+    "Hospedagem                        R$ " +
+    receitaHospedagem.toFixed(2).replace(".", ",") +
+    "\n" +
+
+    "Eventos                           R$ " +
+    receitaEventos.toFixed(2).replace(".", ",") +
+    "\n" +
+
+    "TOTAL                             R$ " +
+    receitaTotal.toFixed(2).replace(".", ",")
+)
+
+    menuPrincipal()
+}
+
+function erroMenu() {
+    alert("Opção inválida!")
+    menuPrincipal()
+}
+
+function sair() {
+    alert("Muito obrigado e até logo, " + nome + ".")
+}
+
+//3.3 Regras de implementação
+
+let quartos = []
+let hospedesCadastrados = []
+let reservasConfirmadas = []
+let eventosConfirmados = []
+
+for (let i = 1; i <= 20; i++) {
+    quartos.push({
+        numero: i,
+        ocupado: false
+    })
+}
+if (acessoLiberado) {
+    menuPrincipal()
+}
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // Leia um valor `N` (N > 0) e imprima todos os inteiros de 1 até `N`.
+    
+        var n =parseInt (prompt("insira um número"));
+
+    while (n <= 0 ) {
+      n = parseInt(prompt("tente novamente"));
+    }
+    var numeros= "";
+    for (var i = 1; i <= n; i++){
+    numeros += i + "\n";
+    }
+
+    alert(numeros);
+    </script>
+</body>
+</html>
