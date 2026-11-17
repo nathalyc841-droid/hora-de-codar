@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BichinhoVirtual</title>
+    <script>
+
+        // Classe Principal (normalmente em um arquivo externo)
+        class BichinhoVirtual {
+            constructor(nome) {
+                this.nome = nome;
+                this.nivelDeFome = 50;
+                this.nivelFelicidade = 50;
+            }
+
+            alimentar() {
+                this.nivelDeFome -= 10;
+               alert(`${this.nome} foi alimentado. O nível de fome diminuiu.`);
+            }
+
+            brincar() {
+                this.nivelFelicidade += 10;
+                alert(`${this.nome} está brincando e se sentindo mais feliz.`);
+            }
+
+            verificarStatus() {
+                alert(`Status atual de ${this.nome}:`);
+                alert(`Nível de fome: ${this.nivelDeFome}`);
+                alert(`Nível de felicidade: ${this.nivelFelicidade}`);
+            }
+
+            passarTempo() {
+                this.nivelDeFome += 5;
+                alert(`${this.nome} está ficando mais faminto com o passar do tempo.`);
+            }
+        }
+    </script>
+    <script>
+
+        // Programa Principal
+        console.log("Bem-vindo ao Simulador de Animal de Estimação Virtual!");
+        const nomePet = prompt("Digite o nome do seu pet:") ;
+        const pet = new VirtualPet(nomePet);
+    
+
+        while (true) {
+            alert("\nEscolha uma ação:");
+            alert("1. Alimentar " + nomePet);
+            alert("2. Brincar com " + nomePet);
+            alert("3. Verificar o status de " + nomePet);
+            alert("4. Sair");
+
+            const escolha = parseInt(prompt("Escolha uma opção:"));
+
+            switch (escolha) {
+                case 1:
+                    pet.alimentar();
+                    break;
+                case 2:
+                    pet.brincar();
+                    break;
+                case 3:
+                    pet.verificarStatus();
+                    break;
+                case 4:
+                    console.log("Saindo do Simulador de Animal de Estimação Virtual. Adeus!");
+                    process.exit();
+                default:
+                    console.log("Escolha inválida. Tente novamente.");
+            }
+
+            pet.passarTempo(); // Simula o tempo que passa após cada ação
+        }
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>
